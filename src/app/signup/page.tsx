@@ -49,7 +49,6 @@ const SignUP = () => {
 
   const HandlePassValue = (e: { target: { value: string } }) => {
     setPassInputValue(e.target.value);
-    console.log(passInputValue);
   };
 
   const HandelPassErr = () => {
@@ -92,12 +91,28 @@ const SignUP = () => {
   useEffect(() => {
     HandleEmailErr();
   }, [emailORPhoneInputValue]);
-  console.log(emailORPhoneInputValue);
 
-  const ClikedOnSubmit = () => {
-    console.log(usernameInputValue);
-    console.log(passInputValue);
-    console.log(emailORPhoneInputValue);
+  const ClikedOnSubmit = async () => {
+    const NewBody = {
+      email: emailORPhoneInputValue,
+      password: passInputValue,
+      username: usernameInputValue,
+      profileIMG: "Hello",
+    };
+    console.log(JSON.stringify(NewBody));
+    const response = await fetch(
+      "https://ig-backend-ix9h.onrender.com/sign-up",
+      {
+        method: "POST",
+
+        body: JSON.stringify(NewBody),
+        headers: { "Content-Type": "application/json" },
+      }
+    );
+
+    const data = await response.json();
+    console.log(data.token);
+    localStorage.setItem("accessToken", data.token);
   };
   return (
     <div className="h-screen bg-black w-screen flex justify-center items-center">

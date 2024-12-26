@@ -9,9 +9,11 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useEffect } from "react";
 const Login = () => {
+  const router = useRouter();
   const [usernameInputValue, setUsernameInputValue] = useState<string>("");
   const [usernameErr, setUsernameErr] = useState(false);
   const [passInputValue, setPassInputValue] = useState<string>("");
@@ -32,7 +34,6 @@ const Login = () => {
 
   const HandlePassValue = (e: { target: { value: string } }) => {
     setPassInputValue(e.target.value);
-    console.log(passInputValue);
   };
   const HandelPassErr = () => {
     if (passInputValue === "") {
@@ -45,9 +46,32 @@ const Login = () => {
   useEffect(() => {
     HandelPassErr();
   }, [passInputValue]);
-  const ClickedOnLogin = () => {
-    console.log(usernameInputValue);
-    console.log(passInputValue);
+
+  const checkUser = async () => {
+    const username = usernameInputValue;
+    const password = passInputValue;
+
+    try {
+      const resJSON = await fetch(
+        "https://ig-backend-ix9h.onrender.com/login",
+        {
+          method: "POST",
+          body: JSON.stringify({
+            username,
+            password,
+          }),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      const token = await resJSON.json();
+      localStorage.setItem("accessToken", token);
+      router.push("/posts");
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
@@ -84,7 +108,7 @@ const Login = () => {
           </div>
           <Button
             className="bg-sky-600 w-64 h-8 font-extrabold"
-            onClick={ClickedOnLogin}
+            onClick={checkUser}
           >
             Log in
           </Button>
