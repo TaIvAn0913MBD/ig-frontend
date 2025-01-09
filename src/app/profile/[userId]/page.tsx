@@ -53,6 +53,7 @@ const Profile = ({ params }: { params: Promise<{ userId: string }> }) => {
   const userID = Decoded.userId;
   const [userData, setUserData] = useState<postType>();
   const [createModalFollowerOpen, setCreateModalFollowerOpen] = useState(false);
+  const [createModalEditOpen, setCreateModalEditOpen] = useState(false);
   const [createModalFollowingOpen, setCreateModalFollowingOpen] =
     useState(false);
   const [reloader, setReloader] = useState(false);
@@ -123,6 +124,12 @@ const Profile = ({ params }: { params: Promise<{ userId: string }> }) => {
   const handleDialogFollowing = () => {
     setCreateModalFollowingOpen((prev: any) => !prev);
   };
+  const handleDialogEdit = () => {
+    setCreateModalEditOpen((prev: any) => !prev);
+  };
+  const testEditProfileIMG = () => {
+    handleDialogEdit();
+  };
   const testFollower = (postID: string | undefined) => {
     setHandleFollowerPostID(postID);
     console.log(postID);
@@ -131,54 +138,6 @@ const Profile = ({ params }: { params: Promise<{ userId: string }> }) => {
   const testFollowing = (postID: string | undefined) => {
     setHandleFollowingPostID(postID);
     handleDialogFollowing();
-  };
-  const [inputImageValue, setInputImageValue] = useState<FileList | null>();
-  const [uploadedImageValue, setUploadedImageValue] = useState<string[]>([]);
-  const HandleUpload = async () => {
-    if (!inputImageValue) return;
-
-    const uploadPromises = Array.from(inputImageValue).map(async (image) => {
-      const formData = new FormData();
-      formData.append("file", image);
-      formData.append("upload_preset", "Taivan");
-      formData.append("cloud_name", "daepguvpo");
-
-      const response = await fetch(
-        "https://api.cloudinary.com/v1_1/daepguvpo/image/upload",
-        {
-          method: "POST",
-          body: formData,
-        }
-      );
-
-      if (!response.ok) {
-        throw new Error("Failed to upload image");
-      }
-
-      const result = await response.json();
-      return result.secure_url;
-    });
-
-    const uploadedUrls = await Promise.all(uploadPromises);
-
-    setUploadedImageValue(
-      uploadedUrls.filter((url) => url !== null) as string[]
-    );
-
-    setReloader((prev: any) => !prev);
-    console.log(uploadedImageValue);
-  };
-
-  const EditProfileIMG = async () => {
-    const NewBody = {
-      userId: userId,
-      file: uploadedImageValue,
-    };
-    console.log(NewBody);
-    await fetch(`https://ig-backend-ix9h.onrender.com/user/edit/profileIMG`, {
-      method: "POST",
-      body: JSON.stringify(NewBody),
-    });
   };
 
   useEffect(() => {
@@ -206,11 +165,11 @@ const Profile = ({ params }: { params: Promise<{ userId: string }> }) => {
           <div className="flex  w-full justify-around">
             <div
               className="flex h-16 w-28 flex-wrap justify-center items-center border-2 rounded-lg border-black"
-              onClick={() => HandleUpload()}
+              onClick={() => testEditProfileIMG()}
             >
               Proflie Picture <ImageDown />
             </div>
-            <button onClick={EditProfileIMG}>Edit</button>
+
             <div>
               {followingStatus ? (
                 <span
@@ -229,16 +188,6 @@ const Profile = ({ params }: { params: Promise<{ userId: string }> }) => {
               )}
             </div>
           </div>
-          <input
-            type="file"
-            multiple
-            onChange={(e) => {
-              const files = e.target.files;
-              if (files) {
-                setInputImageValue(files);
-              }
-            }}
-          />
         </CardHeader>
 
         <CardContent className="w-full h-16 flex  justify-evenly mt-3 border-b-2 border-black">
@@ -287,7 +236,6 @@ const Profile = ({ params }: { params: Promise<{ userId: string }> }) => {
         <EditProfilePhoto
           open={createModalEditOpen}
           handleDialog={handleDialogEdit}
-          data={HandleFollowerPostID}
         />
       </Card>
     </FooterComp>

@@ -97,8 +97,10 @@ const NewPostDialog = ({ open, handleDialog, data }: any) => {
             placeholder="Description"
             className="border-neutral-500 w-64 text-sm text-black"
           />
-          <button onClick={uploadImages}>Upload</button>
-          <button onClick={() => PostThePost()}>post</button>
+          <div className="w-full flex justify-around">
+            <button onClick={uploadImages}>Upload</button>
+            <button onClick={() => PostThePost()}>post</button>
+          </div>
 
           <div className="mt-4 text-center">
             <p></p>

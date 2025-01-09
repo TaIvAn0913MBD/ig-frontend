@@ -9,9 +9,13 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import { jwtDecode } from "jwt-decode";
 import { useEffect, useState } from "react";
-const EditProfilePhoto = ({ open, handleDialog, data }: any) => {
+const EditProfilePhoto = ({ open, handleDialog }: any) => {
   const [images, setImages] = useState<FileList | null>(null);
+  const token = localStorage.getItem("accessToken");
+  const decode = jwtDecode(token ?? "");
+  const userId = decode.userId;
 
   const [uploadedImages, setUploadedImages] = useState<string[]>([]);
 
@@ -44,11 +48,11 @@ const EditProfilePhoto = ({ open, handleDialog, data }: any) => {
 
     setUploadedImages(uploadedUrls.filter((url) => url !== null) as string[]);
   };
-  const PostThePost = async () => {
+  const EditTheProfileIMG = async () => {
     try {
       const body = {
-        _id: data,
-        profileIMG: uploadedImages,
+        _id: userId,
+        profileIMG: uploadedImages[0],
       };
       console.log({ body });
       const jsonData = await fetch(
@@ -88,7 +92,7 @@ const EditProfilePhoto = ({ open, handleDialog, data }: any) => {
           />
 
           <button onClick={uploadImages}>Upload</button>
-          <button onClick={() => PostThePost()}>post</button>
+          <button onClick={EditTheProfileIMG}>post</button>
 
           <div className="mt-4 text-center">
             <p></p>
