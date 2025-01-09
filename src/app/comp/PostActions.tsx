@@ -4,6 +4,7 @@ import { jwtDecode } from "jwt-decode";
 import { useState } from "react";
 import { LikeDialog } from "./LikeDialog";
 import { useRouter } from "next/navigation";
+
 export const PostActions = ({
   postId,
   likes,
@@ -42,7 +43,7 @@ export const PostActions = ({
           },
         }
       );
-      setLikesUse((prev) => prev + 1);
+      await setLikesUse((prev) => prev + 1);
 
       setIsUserliked(true);
     }

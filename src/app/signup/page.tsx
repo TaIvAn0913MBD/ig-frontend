@@ -10,8 +10,10 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 
 const SignUP = () => {
+  const router = useRouter();
   const [usernameInputValue, setUsernameInputValue] = useState<string>("");
   const [usernameInvalid, setUsernameInvalid] = useState("");
   const [usernameErr, setUsernameErr] = useState(false);
@@ -22,6 +24,9 @@ const SignUP = () => {
     useState<string>("");
   const [emailInvalid, setEmailInvalid] = useState("");
   const [emailErr, setEmailErr] = useState(false);
+  const [bioValue, setBioValue] = useState("");
+  const [bioInvalid, setBioInvalid] = useState("");
+  const [bioERR, setBioERR] = useState(false);
 
   const HandleUsernameValue = (e: { target: { value: string } }) => {
     setUsernameInputValue(e.target.value);
@@ -75,6 +80,9 @@ const SignUP = () => {
   const HandleEmailORPhoneValue = (e: { target: { value: string } }) => {
     setEmailORPhoneInputValue(e.target.value);
   };
+  const HandleBioValue = (e: { target: { value: string } }) => {
+    setBioValue(e.target.value);
+  };
   const HandleEmailErr = () => {
     if (emailORPhoneInputValue === "") {
       setEmailErr(true);
@@ -91,12 +99,24 @@ const SignUP = () => {
   useEffect(() => {
     HandleEmailErr();
   }, [emailORPhoneInputValue]);
+  const HandleBioErr = () => {
+    if (bioValue === "") {
+      setBioERR(true);
+      setBioInvalid("write something");
+    } else {
+      setBioERR(false);
+    }
+  };
+  useEffect(() => {
+    HandleBioErr();
+  }, [bioValue]);
 
   const ClikedOnSubmit = async () => {
     const NewBody = {
       email: emailORPhoneInputValue,
       password: passInputValue,
       username: usernameInputValue,
+      bio: bioValue,
       profileIMG: "Hello",
     };
     console.log(JSON.stringify(NewBody));
@@ -113,6 +133,7 @@ const SignUP = () => {
     const data = await response.json();
     console.log(data.token);
     localStorage.setItem("accessToken", data.token);
+    router.push("/posts");
   };
   return (
     <div className="h-screen bg-black w-screen flex justify-center items-center">
@@ -132,7 +153,7 @@ const SignUP = () => {
           </CardDescription>
         </CardHeader>
         <CardContent className="flex flex-col justify-between mt-14 h-2/4 ">
-          <div className="flex flex-col justify-around h-2/4">
+          <div className="flex flex-col justify-around h-3/4">
             <Input
               value={emailORPhoneInputValue}
               onChange={HandleEmailORPhoneValue}
@@ -158,6 +179,13 @@ const SignUP = () => {
               className="border-neutral-500 w-64 text-sm text-white"
             />
             {passErr ? <div className="text-red-500">{passInvalid}</div> : null}
+            <Input
+              value={bioValue}
+              onChange={HandleBioValue}
+              placeholder="Bio"
+              className="border-neutral-500 w-64 text-sm text-white"
+            />
+            {bioERR ? <div className="text-red-500">{bioInvalid}</div> : null}
           </div>
           <Button
             className="bg-sky-600 w-64 h-8 font-extrabold"

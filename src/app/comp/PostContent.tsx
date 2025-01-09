@@ -10,7 +10,7 @@ export const PostContent = ({ postImages }: { postImages: Array<string> }) => {
   return (
     <CardContent
       className="h-96 w-96 flex justify-center items-center border-b-2 border-white
-             p-2 border-t-2 bg-black "
+             p-2 border-t-2 bg-black mt-4"
     >
       <Carousel className="h-1/2 w-96 border-white">
         <CarouselContent>

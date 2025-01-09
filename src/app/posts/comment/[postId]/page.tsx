@@ -15,6 +15,7 @@ import { Input } from "@/components/ui/input";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { use } from "react";
 import { Button } from "@/components/ui/button";
+import { FooterComp } from "@/app/comp/FooterComp";
 
 type authorType = {
   _id: string;
@@ -94,63 +95,67 @@ const Page = ({ params }: { params: Promise<{ postId: string }> }) => {
     router.push("/posts");
   };
   return (
-    <div className="h-screen w-screen flex justify-center items-center">
-      <Card className="h-screen w-96 bg-black overflow-hidden">
-        <CardHeader className="w-96 h-20 flex justify-center items-center border-b-2 border-gray-500">
-          <div className="text-white text-xl font-sans font-bold">Comments</div>
-        </CardHeader>
-
-        <div className="flex flex-col justify-between h-5/6 mt-5 items-center">
-          <CardContent className="overflow-y-scroll h-full">
-            {comments.map((comment) => {
-              const authorInfo = comment.authorID;
-              return (
-                <div
-                  key={comment._id}
-                  className="flex flex-col my-3 border-zinc-300 border-2 p-2
-              "
-                >
-                  <div className="flex gap-4 justify-center items-center w-min">
-                    <Avatar className="flex text-center">
-                      <AvatarImage src={authorInfo.profileIMG} />
-                      <AvatarFallback>IMG</AvatarFallback>
-                    </Avatar>
-                    <span className="text-white font-sans font-semibold text-base">
-                      {authorInfo.username}
-                    </span>
-                  </div>
-
-                  <div className="text-white font-sans font-semibold text-sm mx-10">
-                    ...{comment.comment}
-                  </div>
-                </div>
-              );
-            })}
-          </CardContent>
-          <CardFooter>
-            <div className="flex gap-4 w-80">
-              <Input
-                className="text-white w-72"
-                value={inputValue}
-                onChange={HandleInputValue}
-              />
-              <Button
-                className="bg-white hover:bg-lime-500 duration-300"
-                onClick={CreateComment}
-              >
-                <ArrowRight className="text-black h-4 hover:h-8 duration-700" />
-              </Button>
+    <FooterComp>
+      <div className="h-screen w-screen flex justify-center items-center">
+        <Card className="h-screen w-96 bg-black overflow-hidden">
+          <CardHeader className="w-96 h-20 flex justify-center items-center border-b-2 border-gray-500">
+            <div className="text-white text-xl font-sans font-bold">
+              Comments
             </div>
-          </CardFooter>
-          <Button
-            className="bg-white hover:bg-slate-400 duration-300 w-5/6 text-black"
-            onClick={HandleBack}
-          >
-            Go Back
-          </Button>
-        </div>
-      </Card>
-    </div>
+          </CardHeader>
+
+          <div className="flex flex-col justify-between h-5/6 mt-5 items-center">
+            <CardContent className="overflow-y-scroll w-full h-full ">
+              {comments.map((comment) => {
+                const authorInfo = comment.authorID;
+                return (
+                  <div
+                    key={comment._id}
+                    className="flex flex-col w-full my-3 border-zinc-300 border-2 p-2 flex-wrap
+              "
+                  >
+                    <div className="flex gap-4 justify-center items-center w-min">
+                      <Avatar className="flex text-center">
+                        <AvatarImage src={authorInfo.profileIMG} />
+                        <AvatarFallback>IMG</AvatarFallback>
+                      </Avatar>
+                      <span className="text-white font-sans font-semibold text-base">
+                        {authorInfo.username}
+                      </span>
+                    </div>
+
+                    <p className="whitespace-pre-wrap text-white w-80 text-wrap">
+                      {comment.comment}
+                    </p>
+                  </div>
+                );
+              })}
+            </CardContent>
+            <CardFooter>
+              <div className="flex gap-4 w-80">
+                <Input
+                  className="text-white w-72"
+                  value={inputValue}
+                  onChange={HandleInputValue}
+                />
+                <Button
+                  className="bg-white hover:bg-lime-500 duration-300"
+                  onClick={CreateComment}
+                >
+                  <ArrowRight className="text-black h-4 hover:h-8 duration-700" />
+                </Button>
+              </div>
+            </CardFooter>
+            <Button
+              className="bg-white hover:bg-slate-400 duration-300 w-5/6 text-black"
+              onClick={HandleBack}
+            >
+              Go Back
+            </Button>
+          </div>
+        </Card>
+      </div>
+    </FooterComp>
   );
 };
 export default Page;

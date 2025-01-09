@@ -13,6 +13,8 @@ import { PostContent } from "../comp/PostContent";
 
 import { PostHeader } from "../comp/PostHeader";
 
+import { FooterComp } from "../comp/FooterComp";
+
 type userTypes = {
   email: string;
   password: string;
@@ -22,6 +24,7 @@ type userTypes = {
   following: Array<string>;
   comments: Array<string>;
   posts: Array<string>;
+  _id: string;
 };
 type postType = {
   _id: string;
@@ -54,34 +57,30 @@ const Page = () => {
   useEffect(() => {
     getPosts();
   }, []);
-
+  console.log(posts);
   return (
-    <div className="min-h-screen min-w-screen flex flex-col justify-center items-center overflow-scroll">
-      {posts?.map((post) => {
-        return (
-          <Card
-            key={post._id}
-            className="min-h-5/6 w-96 overflow-x-hidden bg-black border-black border-4"
-          >
-            <PostHeader creatorID={post.creatorID}></PostHeader>
-            <PostContent postImages={post.postImages}></PostContent>
-            <PostActions
-              likes={post.likes}
-              creatorID={post.creatorID}
-              comments={post.comments}
-              description={post.description}
-              postId={post._id}
-            ></PostActions>
-          </Card>
-        );
-      })}
-
-      {/* <LikeDialog
-        open={createModalOpen}
-        handleDialog={handleDialog}
-        data={HandleLikePostID}
-      /> */}
-    </div>
+    <FooterComp>
+      <div className="min-h-screen min-w-screen flex flex-col justify-center items-center overflow-scroll">
+        {posts?.map((post) => {
+          return (
+            <Card
+              key={post._id}
+              className="min-h-5/6 w-96 overflow-x-hidden bg-black border-black border-4 mt-4"
+            >
+              <PostHeader creatorID={post.creatorID}></PostHeader>
+              <PostContent postImages={post.postImages}></PostContent>
+              <PostActions
+                likes={post.likes}
+                creatorID={post.creatorID}
+                comments={post.comments}
+                description={post.description}
+                postId={post._id}
+              ></PostActions>
+            </Card>
+          );
+        })}
+      </div>
+    </FooterComp>
   );
 };
 export default Page;

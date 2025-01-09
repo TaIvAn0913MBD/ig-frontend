@@ -1,11 +1,17 @@
 import { Ellipsis } from "lucide-react";
+import { useRouter } from "next/navigation";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { CardHeader } from "@/components/ui/card";
 export const PostHeader = ({
   creatorID,
 }: {
-  creatorID: { profileIMG: string; username: string };
+  creatorID: { profileIMG: string; username: string; _id: string };
 }) => {
+  const router = useRouter();
+  const RouteToProfile = (id: string) => {
+    router.push(`/profile/${id}`);
+  };
+  console.log(creatorID);
   return (
     <CardHeader className="flex justify-around w-96 h-16 ">
       <div className="flex w-80 justify-between">
@@ -15,7 +21,10 @@ export const PostHeader = ({
             <AvatarFallback>IMG</AvatarFallback>
           </Avatar>
 
-          <span className="text-white font-bold font-sans">
+          <span
+            className="text-white font-bold font-sans"
+            onClick={() => RouteToProfile(creatorID._id)}
+          >
             {creatorID.username}
           </span>
         </div>
