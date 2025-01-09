@@ -90,9 +90,10 @@ const EditProfilePhoto = ({ open, handleDialog }: any) => {
             }}
             className="file:border file:border-gray-300 file:rounded-md file:px-4 file:py-2 file:bg-blue-50 file:text-blue-700 file:cursor-pointer hover:file:bg-blue-100"
           />
-
-          <button onClick={uploadImages}>Upload</button>
-          <button onClick={EditTheProfileIMG}>post</button>
+          <div className="w-full justify-around">
+            <button onClick={uploadImages}>Upload</button>
+            <button onClick={EditTheProfileIMG}>post</button>
+          </div>
 
           <div className="mt-4 text-center">
             <p></p>

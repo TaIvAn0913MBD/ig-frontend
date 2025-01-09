@@ -147,7 +147,7 @@ const Profile = ({ params }: { params: Promise<{ userId: string }> }) => {
   console.log(followingStatus);
   return (
     <FooterComp>
-      <Card className="border-0 min-h-screen">
+      <Card className="border-0 min-h-screen bg-black">
         <CardHeader className="border-b border-black h-2/6 flex flex-col gap-5">
           <div className="flex gap-7 h-16 items-center">
             <Avatar className="h-20 w-20">
@@ -157,14 +157,14 @@ const Profile = ({ params }: { params: Promise<{ userId: string }> }) => {
               ></AvatarImage>
               <AvatarFallback className="h-20 w-20">IMG</AvatarFallback>
             </Avatar>
-            <p className="text-lg">{userData?.username}</p>
+            <p className="text-lg text-white">{userData?.username}</p>
           </div>
-          <CardDescription className="text-black text-base">
+          <CardDescription className="text-white text-base">
             BIO: {userData?.bio}
           </CardDescription>
           <div className="flex  w-full justify-around">
             <div
-              className="flex h-16 w-28 flex-wrap justify-center items-center border-2 rounded-lg border-black"
+              className="flex h-16 w-28 flex-wrap justify-center text-white items-center border-2 rounded-lg border-white"
               onClick={() => testEditProfileIMG()}
             >
               Proflie Picture <ImageDown />
@@ -173,14 +173,14 @@ const Profile = ({ params }: { params: Promise<{ userId: string }> }) => {
             <div>
               {followingStatus ? (
                 <span
-                  className="text-cyan-500 border border-black p-2 bg-black rounded-md"
+                  className="text-cyan-500 border border-white p-2 bg-white rounded-md"
                   onClick={() => UnFollowHim(userData?._id)}
                 >
                   Unfollow
                 </span>
               ) : (
                 <span
-                  className="text-cyan-500 border border-black p-2 bg-black rounded-md"
+                  className="text-cyan-500 border border-white p-2 bg-white rounded-md"
                   onClick={() => FollowHim(userData?._id)}
                 >
                   Follow
@@ -190,35 +190,41 @@ const Profile = ({ params }: { params: Promise<{ userId: string }> }) => {
           </div>
         </CardHeader>
 
-        <CardContent className="w-full h-16 flex  justify-evenly mt-3 border-b-2 border-black">
-          <div className="w-1/3 flex flex-col items-center h-14 border-r border-black">
-            <p>{userData?.posts.length}</p>
-            <p>posts</p>
+        <CardContent className="w-full h-16 flex  justify-evenly mt-3 border-b-2 border-white border-t-2 pt-2">
+          <div className="w-1/3 flex flex-col items-center h-12 border-r border-white">
+            <p className="text-white">{userData?.posts.length}</p>
+            <p className="text-white">posts</p>
           </div>
           <div
-            className="w-1/3 flex flex-col items-center h-14 border-r border-black"
+            className="w-1/3 flex flex-col items-center h-12 border-r border-white"
             onClick={() => testFollower(userData?._id)}
           >
-            <p>{userData?.followers.length}</p>
-            <p>followers</p>
+            <p className="text-white"> {userData?.followers.length}</p>
+            <p className="text-white">followers</p>
           </div>
           <div
-            className="w-1/3 flex flex-col items-center h-14"
+            className="w-1/3 flex flex-col items-center h-12"
             onClick={() => testFollowing(userData?._id)}
           >
-            <p>{userData?.following.length}</p>
-            <p>following</p>
+            <p className="text-white">{userData?.following.length}</p>
+            <p className="text-white">following</p>
           </div>
         </CardContent>
         <CardFooter className="mt-2 flex flex-col w-full p-2">
-          <div className="w-full justify-center flex gap-1 border-b border-black p-2">
-            <p>Posts</p>
-            <Grid3X3 />
+          <div className="w-full justify-center flex gap-1 border-b border-white p-2">
+            <p className="text-white">Posts</p>
+            <Grid3X3 className="text-white" />
           </div>
           <div className="mt-2 flex w-full flex-wrap gap-2 justify-center">
             {userData?.posts.map((post) => {
               return post.postImages.map((image) => {
-                return <img src={image} key={image} className="w-32" />;
+                return (
+                  <img
+                    src={image}
+                    key={image}
+                    className="w-32 border-white border"
+                  />
+                );
               });
             })}
           </div>

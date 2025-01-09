@@ -55,7 +55,7 @@ export const FooterComp = ({ children }) => {
   return (
     <div>
       <div className="mb-20">{children}</div>
-      <div className="flex w-full mt-7 fixed bottom-0 left-0 right-0 justify-around h-14 items-center bg-black">
+      <div className="flex w-full mt-7 fixed bottom-0 left-0 right-0 justify-around h-14 items-center bg-black border-white border-t">
         <House className="text-white" onClick={HandleHome} />
         <Plus onClick={test} className="text-white" />
         <Avatar onClick={() => HandleRoute()}>
