@@ -13,23 +13,18 @@ export const PostHeader = ({
   };
   console.log(creatorID);
   return (
-    <CardHeader className="flex justify-around w-96 h-16 ">
-      <div className="flex w-80 justify-between">
-        <div className="flex justify-between w-32">
-          <Avatar className="max-h-8 flex text-center">
-            <AvatarImage src={creatorID.profileIMG} />
-            <AvatarFallback>IMG</AvatarFallback>
-          </Avatar>
+    <CardHeader className="flex flex-row justify-between w-96 h-16 ">
+      <Avatar className="max-h-8 flex text-center">
+        <AvatarImage src={creatorID.profileIMG} />
+        <AvatarFallback>IMG</AvatarFallback>
+      </Avatar>
 
-          <span
-            className="text-white font-bold font-sans"
-            onClick={() => RouteToProfile(creatorID._id)}
-          >
-            {creatorID.username}
-          </span>
-        </div>
-        <Ellipsis className="text-white"></Ellipsis>
-      </div>
+      <span
+        className="text-white font-bold font-sans"
+        onClick={() => RouteToProfile(creatorID._id)}
+      >
+        {creatorID.username}
+      </span>
     </CardHeader>
   );
 };

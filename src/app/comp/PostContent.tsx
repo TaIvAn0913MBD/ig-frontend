@@ -9,10 +9,10 @@ import { CardContent } from "@/components/ui/card";
 export const PostContent = ({ postImages }: { postImages: Array<string> }) => {
   return (
     <CardContent
-      className="h-96 w-96 flex justify-center items-center border-b-2 border-white
-             p-2 border-t-2 bg-black mt-4"
+      className="h-96 w-96 flex justify-center items-center border-b border-x-zinc-800
+             p-2 border-t bg-black mt-4"
     >
-      <Carousel className="h-1/2 w-96 border-white">
+      <Carousel className="h-1/2 w-96">
         <CarouselContent>
           {postImages.map((image: string) => {
             console.log(image);

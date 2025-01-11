@@ -75,9 +75,9 @@ const NewPostDialog = ({ open, handleDialog, data }: any) => {
   };
   return (
     <Dialog open={open} onOpenChange={handleDialog}>
-      <DialogContent className="sm:max-w-[425px] min-h-96">
+      <DialogContent className="sm:max-w-[425px] min-h-96 bg-black">
         <DialogHeader className="h-7">
-          <DialogTitle>New Post</DialogTitle>
+          <DialogTitle className="text-white">New Post</DialogTitle>
         </DialogHeader>
         <div className="max-w-lg mx-auto p-4 space-y-4">
           <input
@@ -98,8 +98,13 @@ const NewPostDialog = ({ open, handleDialog, data }: any) => {
             className="border-neutral-500 w-64 text-sm text-black"
           />
           <div className="w-full flex justify-around">
-            <button onClick={uploadImages}>Upload</button>
-            <button onClick={() => PostThePost()}>post</button>
+            <button onClick={uploadImages} className="text-white">
+              {" "}
+              Upload
+            </button>
+            <button onClick={() => PostThePost()} className="text-white">
+              post
+            </button>
           </div>
 
           <div className="mt-4 text-center">

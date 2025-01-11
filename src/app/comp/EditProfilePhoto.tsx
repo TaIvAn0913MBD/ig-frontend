@@ -74,9 +74,9 @@ const EditProfilePhoto = ({ open, handleDialog }: any) => {
 
   return (
     <Dialog open={open} onOpenChange={handleDialog}>
-      <DialogContent className="sm:max-w-[425px] min-h-96">
+      <DialogContent className="sm:max-w-[425px] min-h-96 bg-black">
         <DialogHeader className="h-7">
-          <DialogTitle>Edit</DialogTitle>
+          <DialogTitle className="text-white">Edit</DialogTitle>
         </DialogHeader>
         <div className="max-w-lg mx-auto p-4 space-y-4">
           <input
@@ -91,8 +91,12 @@ const EditProfilePhoto = ({ open, handleDialog }: any) => {
             className="file:border file:border-gray-300 file:rounded-md file:px-4 file:py-2 file:bg-blue-50 file:text-blue-700 file:cursor-pointer hover:file:bg-blue-100"
           />
           <div className="w-full justify-around">
-            <button onClick={uploadImages}>Upload</button>
-            <button onClick={EditTheProfileIMG}>post</button>
+            <button onClick={uploadImages} className="text-white">
+              Upload
+            </button>
+            <button onClick={EditTheProfileIMG} className="text-white">
+              post
+            </button>
           </div>
 
           <div className="mt-4 text-center">

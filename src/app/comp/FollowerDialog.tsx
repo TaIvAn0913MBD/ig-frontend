@@ -26,15 +26,18 @@ const FollowerDialog = ({ open, handleDialog, data }: any) => {
   }, [data]);
   return (
     <Dialog open={open} onOpenChange={handleDialog}>
-      <DialogContent className="sm:max-w-[425px] min-h-96">
+      <DialogContent className="sm:max-w-[425px] min-h-96 bg-black">
         <DialogHeader className="h-7">
-          <DialogTitle>Follower</DialogTitle>
+          <DialogTitle className="text-white">Follower</DialogTitle>
         </DialogHeader>
         <div className="h-80 w-full flex flex-col justify-start overflow-y-scroll">
           {likes?.map(
             (like: { _id: string; profileIMG: string; username: string }) => {
               return (
-                <div className="border-black border-2 m-3 p-3" key={like._id}>
+                <div
+                  className="border-white rounded-md border-2 m-1 p-3"
+                  key={like._id}
+                >
                   <span
                     key={like._id}
                     className="flex gap-2 flex-col items-start
@@ -44,7 +47,7 @@ const FollowerDialog = ({ open, handleDialog, data }: any) => {
                       <AvatarImage src={like.profileIMG} />
                       <AvatarFallback>CN</AvatarFallback>
                     </Avatar>
-                    <p>{like.username}</p>
+                    <p className="text-white">{like.username}</p>
                   </span>
                 </div>
               );

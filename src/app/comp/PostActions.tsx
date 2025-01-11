@@ -74,10 +74,10 @@ export const PostActions = ({
   };
   return (
     <div>
-      <CardFooter className="flex-col w-96 p-2 items-start h-48">
+      <CardFooter className="flex-col w-96 p-2 items-start h-48 gap-1">
         <div className="flex justify-between w-80">
           <div className=" flex w-96 justify-between">
-            <div className="flex w-24 justify-between">
+            <div className="flex w-16 justify-between">
               <Heart
                 className=" hover:text-gray-600 duration-200 "
                 color={isUserliked ? "red" : "white"}
@@ -88,9 +88,7 @@ export const PostActions = ({
                 className="text-white hover:text-gray-600 duration-200"
                 onClick={() => toCommentSection(postId)}
               />
-              <Send className="text-white hover:text-gray-600 duration-200" />
             </div>
-            <Bookmark className="text-white hover:text-gray-600 duration-200" />
           </div>
         </div>
         <div
@@ -102,7 +100,10 @@ export const PostActions = ({
         <span className="text-white font-sans font-semibold">
           {creatorID.username}: {description}
         </span>
-        <span className="text-gray-500 font-sans font-semibold">
+        <span
+          className="text-gray-500 font-sans font-semibold"
+          onClick={() => toCommentSection(postId)}
+        >
           View all {comments.length} comments
         </span>
       </CardFooter>
