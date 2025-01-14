@@ -66,6 +66,7 @@ const NewPostDialog = ({ open, handleDialog, data }: any) => {
       );
       //
       const response = await jsonData.json();
+      handleDialog();
     } catch (error) {
       console.log(error);
     }
@@ -75,7 +76,7 @@ const NewPostDialog = ({ open, handleDialog, data }: any) => {
   };
   return (
     <Dialog open={open} onOpenChange={handleDialog}>
-      <DialogContent className="sm:max-w-[425px] min-h-96 bg-black">
+      <DialogContent className="sm:max-w-[425px] min-h-1/3 bg-black">
         <DialogHeader className="h-7">
           <DialogTitle className="text-white">New Post</DialogTitle>
         </DialogHeader>
@@ -95,9 +96,9 @@ const NewPostDialog = ({ open, handleDialog, data }: any) => {
             value={descriptionValue}
             onChange={HandleDescription}
             placeholder="Description"
-            className="border-neutral-500 w-64 text-sm text-black"
+            className="border-neutral-500 w-64 text-sm text-white"
           />
-          <div className="w-full flex justify-around">
+          <div className="w-96 flex justify-around">
             <button onClick={uploadImages} className="text-white">
               {" "}
               Upload
@@ -113,7 +114,7 @@ const NewPostDialog = ({ open, handleDialog, data }: any) => {
               <img
                 key={index}
                 src={img}
-                className="max-w-full h-[300px] rounded-lg shadow-lg"
+                className="max-w-full h-[250px] object-contain rounded-lg shadow-lg"
               />
             ))}
           </div>

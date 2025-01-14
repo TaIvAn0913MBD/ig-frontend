@@ -43,7 +43,7 @@ export const PostActions = ({
           },
         }
       );
-      await setLikesUse((prev) => prev + 1);
+      setLikesUse((prev) => prev + 1);
 
       setIsUserliked(true);
     }

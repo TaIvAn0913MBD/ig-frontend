@@ -67,6 +67,7 @@ const EditProfilePhoto = ({ open, handleDialog }: any) => {
       );
       //
       const response = await jsonData.json();
+      handleDialog();
     } catch (error) {
       console.log(error);
     }
@@ -88,9 +89,9 @@ const EditProfilePhoto = ({ open, handleDialog }: any) => {
                 setImages(files);
               }
             }}
-            className="file:border file:border-gray-300 file:rounded-md file:px-4 file:py-2 file:bg-blue-50 file:text-blue-700 file:cursor-pointer hover:file:bg-blue-100"
+            className="file:border file:border-gray-300 file:rounded-md file:px-4 file:py-2 file:bg-blue-50 file:text-blue-700 file:cursor-pointer text-white hover:file:bg-blue-100"
           />
-          <div className="w-full justify-around">
+          <div className="w-96 flex justify-around">
             <button onClick={uploadImages} className="text-white">
               Upload
             </button>
@@ -105,7 +106,7 @@ const EditProfilePhoto = ({ open, handleDialog }: any) => {
               <img
                 key={index}
                 src={img}
-                className="max-w-full h-[300px] rounded-lg shadow-lg"
+                className="max-w-full h-[250px] object-contain rounded-lg shadow-lg"
               />
             ))}
           </div>

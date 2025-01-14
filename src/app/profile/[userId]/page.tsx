@@ -67,6 +67,10 @@ const Profile = ({ params }: { params: Promise<{ userId: string }> }) => {
   >("");
   const [ligma, setLigma] = useState<Array<boolean>>([]);
   const [followYourSelf, setFollowYourSelf] = useState<boolean>(true);
+  const [followerCount, setFollowerCount] = useState(
+    userData?.followers.length
+  );
+
   const GetUser = async () => {
     setLoading(true);
     const JSONDATA = await fetch(
@@ -81,8 +85,7 @@ const Profile = ({ params }: { params: Promise<{ userId: string }> }) => {
     const res = await JSONDATA.json();
     console.log(res);
     setUserData(res);
-    console.log(userData?.followers);
-    console.log(res?._id, userID, "asdf");
+    console.log(res.followers.length);
 
     if (res?._id === userID) {
       setFollowYourSelf(true);
@@ -103,14 +106,11 @@ const Profile = ({ params }: { params: Promise<{ userId: string }> }) => {
         setFollowingStatus(false);
       }
     });
-    // if (ligma.includes(true) === true) {
-    //   setFollowingStatus(true);
-    // } else {
-    //   setFollowingStatus(false);
-    // }
-    if (res !== undefined) {
+
+    if (res !== undefined && res !== null) {
       setLoading(false);
     }
+    setFollowerCount(res.followers.length);
   };
   const FollowHim = async (id1: string | undefined) => {
     const newBody = { gotFollowedID: id1, followedHimID: userID };
@@ -123,8 +123,9 @@ const Profile = ({ params }: { params: Promise<{ userId: string }> }) => {
         body: JSON.stringify(newBody),
       }
     );
+    setFollowerCount((prev: any) => prev + 1);
     setReloader((prev: any) => !prev);
-    console.log(res.json());
+
     setFollowingStatus(true);
   };
   const UnFollowHim = async (id1: string | undefined) => {
@@ -138,7 +139,8 @@ const Profile = ({ params }: { params: Promise<{ userId: string }> }) => {
       }
     );
     setReloader((prev: any) => !prev);
-    console.log(res.json());
+    setFollowerCount((prev: any) => prev - 1);
+
     setFollowingStatus(false);
   };
   const handleDialogFollower = () => {
@@ -165,7 +167,7 @@ const Profile = ({ params }: { params: Promise<{ userId: string }> }) => {
 
   useEffect(() => {
     GetUser();
-  }, [reloader]);
+  }, []);
   console.log({ followYourSelf });
   console.log(userData);
   console.log(followingStatus);
@@ -175,7 +177,7 @@ const Profile = ({ params }: { params: Promise<{ userId: string }> }) => {
   return (
     <FooterComp>
       {loading ? (
-        <div role="status">
+        <div role="status" className="bg-black">
           <svg
             aria-hidden="true"
             className="w-8 h-8 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600"
@@ -255,7 +257,7 @@ const Profile = ({ params }: { params: Promise<{ userId: string }> }) => {
               className="w-1/3 flex flex-col items-center h-12 border-r border-white"
               onClick={() => testFollower(userData?._id)}
             >
-              <p className="text-white"> {userData?.followers.length}</p>
+              <p className="text-white"> {followerCount}</p>
               <p className="text-white">followers</p>
             </div>
             <div
@@ -288,16 +290,19 @@ const Profile = ({ params }: { params: Promise<{ userId: string }> }) => {
           </CardFooter>
           <FollowingDialog
             open={createModalFollowingOpen}
+            close={setCreateModalFollowingOpen}
             handleDialog={handleDialogFollowing}
             data={HandleFollowingPostID}
           />
           <FollowerDialog
             open={createModalFollowerOpen}
+            close={setCreateModalFollowerOpen}
             handleDialog={handleDialogFollower}
             data={HandleFollowerPostID}
           />
           <EditProfilePhoto
             open={createModalEditOpen}
+            close={setCreateModalEditOpen}
             handleDialog={handleDialogEdit}
           />
         </Card>
