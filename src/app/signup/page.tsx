@@ -112,28 +112,42 @@ const SignUP = () => {
   }, [bioValue]);
 
   const ClikedOnSubmit = async () => {
-    const NewBody = {
-      email: emailORPhoneInputValue,
-      password: passInputValue,
-      username: usernameInputValue,
-      bio: bioValue,
-      profileIMG: "Hello",
-    };
-    console.log(JSON.stringify(NewBody));
-    const response = await fetch(
-      "https://ig-backend-ix9h.onrender.com/sign-up",
-      {
-        method: "POST",
+    if (
+      emailORPhoneInputValue !== "" &&
+      passInputValue !== "" &&
+      usernameInputValue !== "" &&
+      bioValue !== ""
+    ) {
+      const NewBody = {
+        email: emailORPhoneInputValue,
+        password: passInputValue,
+        username: usernameInputValue,
+        bio: bioValue,
+        profileIMG: "Hello",
+      };
 
-        body: JSON.stringify(NewBody),
-        headers: { "Content-Type": "application/json" },
-      }
-    );
+      const response = await fetch(
+        "https://ig-backend-ix9h.onrender.com/sign-up",
+        {
+          method: "POST",
 
-    const data = await response.json();
-    console.log(data.token);
-    localStorage.setItem("accessToken", data.token);
-    router.push("/posts");
+          body: JSON.stringify(NewBody),
+          headers: { "Content-Type": "application/json" },
+        }
+      );
+
+      const data = await response.json();
+
+      localStorage.setItem("accessToken", data.token);
+      router.push("/posts");
+    } else {
+      setBioERR(true);
+      setBioInvalid("Please make sure all the fields are filled");
+    }
+  };
+
+  const HandleLogiin = () => {
+    router.push("/login");
   };
   return (
     <div className="h-screen bg-black w-screen flex justify-center items-center">
@@ -198,7 +212,10 @@ const SignUP = () => {
           <span className="text-white font-semibold text-lg">
             Have an account?
           </span>
-          <span className="text-sky-500 font-extrabold text-lg hover:underline">
+          <span
+            className="text-sky-500 font-extrabold text-lg hover:underline"
+            onClick={HandleLogiin}
+          >
             {" "}
             Log in
           </span>

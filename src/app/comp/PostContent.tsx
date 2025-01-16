@@ -15,7 +15,6 @@ export const PostContent = ({ postImages }: { postImages: Array<string> }) => {
       <Carousel className="h-1/2 w-96">
         <CarouselContent>
           {postImages.map((image: string) => {
-            console.log(image);
             return (
               <CarouselItem
                 className=" w-80 flex justify-center items-center"

@@ -31,7 +31,9 @@ const Login = () => {
   useEffect(() => {
     HandelUserErr();
   }, [usernameInputValue]);
-
+  const HandleSignUp = () => {
+    router.push(`/signup`);
+  };
   const HandlePassValue = (e: { target: { value: string } }) => {
     setPassInputValue(e.target.value);
   };
@@ -51,27 +53,20 @@ const Login = () => {
     const username = usernameInputValue;
     const password = passInputValue;
 
-    try {
-      const resJSON = await fetch(
-        "https://ig-backend-ix9h.onrender.com/login",
-        {
-          method: "POST",
-          body: JSON.stringify({
-            username,
-            password,
-          }),
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
+    const resJSON = await fetch("https://ig-backend-ix9h.onrender.com/login", {
+      method: "POST",
+      body: JSON.stringify({
+        username,
+        password,
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
 
-      const token = await resJSON.json();
-      localStorage.setItem("accessToken", token);
-      router.push("/posts");
-    } catch (err) {
-      console.log(err);
-    }
+    const token = await resJSON.json();
+    localStorage.setItem("accessToken", token);
+    router.push("/posts");
   };
 
   return (
@@ -117,7 +112,10 @@ const Login = () => {
           <span className="text-white font-semibold text-lg">
             Don't have an account?
           </span>
-          <span className="text-sky-500 font-extrabold text-lg hover:underline">
+          <span
+            className="text-sky-500 font-extrabold text-lg hover:underline"
+            onClick={HandleSignUp}
+          >
             {" "}
             Sign-up
           </span>

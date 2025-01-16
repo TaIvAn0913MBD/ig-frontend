@@ -49,28 +49,24 @@ const EditProfilePhoto = ({ open, handleDialog }: any) => {
     setUploadedImages(uploadedUrls.filter((url) => url !== null) as string[]);
   };
   const EditTheProfileIMG = async () => {
-    try {
-      const body = {
-        _id: userId,
-        profileIMG: uploadedImages[0],
-      };
-      console.log({ body });
-      const jsonData = await fetch(
-        `https://ig-backend-ix9h.onrender.com/user/edit/profileIMG`,
-        {
-          method: "POST",
-          body: JSON.stringify(body),
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
-      //
-      const response = await jsonData.json();
-      handleDialog();
-    } catch (error) {
-      console.log(error);
-    }
+    const body = {
+      _id: userId,
+      profileIMG: uploadedImages[0],
+    };
+
+    const jsonData = await fetch(
+      `https://ig-backend-ix9h.onrender.com/user/edit/profileIMG`,
+      {
+        method: "POST",
+        body: JSON.stringify(body),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    //
+    const response = await jsonData.json();
+    handleDialog();
   };
 
   return (

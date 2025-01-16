@@ -11,7 +11,7 @@ export const PostHeader = ({
   const RouteToProfile = (id: string) => {
     router.push(`/profile/${id}`);
   };
-  console.log(creatorID);
+
   return (
     <CardHeader className="flex flex-row justify-between w-96 h-16 ">
       <Avatar className="max-h-8 flex text-center">

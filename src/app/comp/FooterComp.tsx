@@ -2,6 +2,7 @@ import { AvatarFallback, AvatarImage, Avatar } from "@/components/ui/avatar";
 import { jwtDecode } from "jwt-decode";
 import { House } from "lucide-react";
 import { useEffect, useState } from "react";
+import { LogOut } from "lucide-react";
 import { Plus } from "lucide-react";
 import { useRouter } from "next/navigation";
 import NewPostDialog from "./NewPostDialog";
